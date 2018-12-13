@@ -19,10 +19,10 @@ messages = [
 image_filenames = [
     'bitmaps/synapse.png'
     'bitmaps/star.png',
-    'bitmaps/tree_and_gifts.png'
-    'bitmaps/manger.png'
-    'bitmaps/santa_hat.png'
-    'bitmaps/snowflake.png'
+    'bitmaps/tree_and_gifts.png',
+    'bitmaps/manger.png',
+    'bitmaps/santa_hat.png',
+    'bitmaps/snowflake.png',
 ]
 
 
