@@ -17,7 +17,7 @@ messages = [
 ]
 
 image_filenames = [
-    'bitmaps/synapse.png'
+    'bitmaps/synapse.png',
     'bitmaps/star.png',
     'bitmaps/tree_and_gifts.png',
     'bitmaps/manger.png',
