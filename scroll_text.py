@@ -12,7 +12,7 @@ GPIO = board.D18
 pixels = neopixel.NeoPixel(GPIO, PIXEL_COUNT, brightness=BRIGHTNESS, auto_write=False)
 
 font = ImageFont.truetype("Perfect DOS VGA 437 Win.ttf", 16)
-image = Image.new('RGB', (16, 100), (0, 0, 0))
+image = Image.new('RGB', (X_PIXELS*100, Y_PIXELS), (0, 0, 0))
 canvas = ImageDraw.Draw(image)
 message = "Merry Christmas!"
 canvas.text((1, 1), message, font=font)
@@ -25,6 +25,7 @@ while offset < image.size[0]:
                 i = x*X_PIXELS + 15 - y
             else:
                 i = x*X_PIXELS + y
-            pixels[i] = canvas.getpixel((x+offset, y))[0:3]
+            pixels[i] = image.getpixel((x+offset, y))[0:3]
     pixels.show()
     offset += 2
+    time.sleep(0.1)
