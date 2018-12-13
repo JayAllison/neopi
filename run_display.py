@@ -1,4 +1,5 @@
 import board
+from itertools import cycle
 import neopixel
 from PIL import ImageFont
 import sprite_writer
@@ -30,38 +31,39 @@ def clear_screen(neopixels):
     neopixels.fill((0, 0, 0))
 
 
-def get_next_message():
-    while True:
-        for m in messages:
-            yield m
+def get_next_message(msg_list):
+    for m in cycle(msg_list):
+        yield m
 
 
-def get_next_image():
-    while True:
-        for f in image_filenames:
-            yield f
+def get_next_image(filename_list):
+    for f in cycle(filename_list):
+        yield f
 
 
-pixels = neopixel.NeoPixel(GPIO, PIXEL_COUNT, brightness=BRIGHTNESS)
+pixels = neopixel.NeoPixel(GPIO, PIXEL_COUNT, brightness=BRIGHTNESS, auto_write=False)
 scroller = text_scroller.TextScroller(X_PIXELS, Y_PIXELS, ImageFont.truetype("Perfect DOS VGA 437 Win.ttf", 16))
 writer = sprite_writer.SpriteWriter(X_PIXELS, Y_PIXELS)
 
 # TODO: add some cool animation in between
 
+message_list = get_next_message(messages)
+image_list = get_next_image(image_filenames)
+
 while True:
 
-    filename = next(get_next_image())
+    filename = next(image_list)
     writer.write_sprite(pixels, filename)
     time.sleep(1)
     clear_screen(pixels)
     time.sleep(0.25)
 
-    message = next(get_next_message())
+    message = next(message_list)
     scroller.scroll_message(pixels, message[0], message[1])
     clear_screen(pixels)
     time.sleep(0.25)
 
-    filename = next(get_next_image())
+    filename = next(image_list)
     writer.write_sprite(pixels, filename)
     time.sleep(1)
     clear_screen(pixels)
