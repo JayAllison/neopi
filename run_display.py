@@ -14,7 +14,7 @@ GPIO = board.D18
 
 messages = [
     ("Merry Christmas!", (0, 255, 0)),
-    ("Happpy Holidays!", (255, 0, 0)),
+    ("Happy Holidays!", (255, 0, 0)),
 ]
 
 image_filenames = [
