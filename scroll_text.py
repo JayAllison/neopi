@@ -12,20 +12,28 @@ GPIO = board.D18
 pixels = neopixel.NeoPixel(GPIO, PIXEL_COUNT, brightness=BRIGHTNESS, auto_write=False)
 
 font = ImageFont.truetype("Perfect DOS VGA 437 Win.ttf", 16)
-image = Image.new('RGB', (X_PIXELS*100, Y_PIXELS), (0, 0, 0))
-canvas = ImageDraw.Draw(image)
-message = "Merry Christmas!"
-canvas.text((1, 1), message, font=font)
+messages = [
+    ("Merry Christmas!", (0, 255, 0)),
+    ("Happpy Holidays!", (255, 0, 0)),
+]
 
-offset = 0
-while offset < image.size[0]:
-    for x in range(X_PIXELS):
-        for y in range(Y_PIXELS):
-            if x % 2:
-                i = x*X_PIXELS + 15 - y
-            else:
-                i = x*X_PIXELS + y
-            pixels[i] = image.getpixel((x+offset, y))[0:3]
-    pixels.show()
-    offset += 2
-    time.sleep(0.1)
+while True:
+    for message in messages:
+        text_size = font.getsize(message[0])
+        image_width = (text_size[0] // X_PIXELS + 2) * X_PIXELS
+        image_height = (text_size[1] // Y_PIXELS + 1) * Y_PIXELS
+        image = Image.new('RGB', (image_width, image_height), (0, 0, 0))
+        canvas = ImageDraw.Draw(image)
+        canvas.text((X_PIXELS, 1), message[0], fill=message[1], font=font)
+
+        offset = 0
+        while (offset+16) < image.size[0]:
+            for x in range(X_PIXELS):
+                for y in range(Y_PIXELS):
+                    if x % 2:
+                        i = x*X_PIXELS + 15 - y
+                    else:
+                        i = x*X_PIXELS + y
+                    pixels[i] = image.getpixel((x+offset, y))[0:3]
+            pixels.show()
+            offset += 1
