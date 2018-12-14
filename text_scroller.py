@@ -10,7 +10,7 @@ class TextScroller(object):
 
     def scroll_message(self, pixels, message, color):
         text_size = self.font.getsize(message)
-        image_width = (text_size[0] // self.x_size + 2) * self.x_size
+        image_width = text_size[0] + 2*self.x_size + 1
         image_height = (text_size[1] // self.y_size + 1) * self.y_size
         image = Image.new('RGB', (image_width, image_height), (0, 0, 0))
         canvas = ImageDraw.Draw(image)
