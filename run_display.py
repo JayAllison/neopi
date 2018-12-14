@@ -1,4 +1,5 @@
 import board
+import effects
 from itertools import cycle
 import neopixel
 from PIL import ImageFont
@@ -46,8 +47,7 @@ def get_next_image(filename_list):
 pixels = neopixel.NeoPixel(GPIO, PIXEL_COUNT, brightness=BRIGHTNESS, auto_write=False)
 scroller = text_scroller.TextScroller(X_PIXELS, Y_PIXELS, ImageFont.truetype("Perfect DOS VGA 437 Win.ttf", 16))
 writer = sprite_writer.SpriteWriter(X_PIXELS, Y_PIXELS)
-
-# TODO: add some cool animation in between
+effector = effects.EffectsGenerator()
 
 message_list = get_next_message(messages)
 image_list = get_next_image(image_filenames)
@@ -55,9 +55,9 @@ image_list = get_next_image(image_filenames)
 while True:
 
     filename = next(image_list)
-    writer.write_sprite(pixels, filename)
-    time.sleep(1)
-    clear_screen(pixels)
+    writer.fade_in_sprite(pixels, filename, 10)
+    time.sleep(2)
+    writer.fade_out_sprite(pixels, filename, 10)
     time.sleep(0.25)
 
     message = next(message_list)
@@ -66,7 +66,9 @@ while True:
     time.sleep(0.25)
 
     filename = next(image_list)
-    writer.write_sprite(pixels, filename)
-    time.sleep(1)
-    clear_screen(pixels)
+    writer.fade_in_sprite(pixels, filename, 10)
+    time.sleep(2)
+    writer.fade_out_sprite(pixels, filename, 10)
     time.sleep(0.25)
+
+    effector.sparkle(pixels)
