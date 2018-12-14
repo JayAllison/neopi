@@ -55,9 +55,9 @@ image_list = get_next_image(image_filenames)
 while True:
 
     filename = next(image_list)
-    writer.fade_in_sprite(pixels, filename, 10)
+    writer.fade_in_sprite(pixels, filename, 5)
     time.sleep(2)
-    writer.fade_out_sprite(pixels, filename, 10)
+    writer.fade_out_sprite(pixels, filename, 5)
     time.sleep(0.25)
 
     message = next(message_list)
@@ -66,9 +66,9 @@ while True:
     time.sleep(0.25)
 
     filename = next(image_list)
-    writer.fade_in_sprite(pixels, filename, 10)
+    writer.fade_in_sprite(pixels, filename, 5)
     time.sleep(2)
-    writer.fade_out_sprite(pixels, filename, 10)
+    writer.fade_out_sprite(pixels, filename, 5)
     time.sleep(0.25)
 
-    effector.sparkle(pixels)
+    effector.sparkle(pixels, percent=5, rgb=(64, 64, 64))
