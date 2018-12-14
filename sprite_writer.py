@@ -44,13 +44,11 @@ class SpriteWriter(object):
         bitmap = Image.open(filename)
         for fade_step in range(steps):
             self._write_faded_sprite(pixels, bitmap, fade_step/steps)
-        pixels.clear()
-        pixels.show()
 
     def fade_out_sprite(self, pixels, filename, steps):
 
         bitmap = Image.open(filename)
         for fade_step in reversed(range(steps)):
             self._write_faded_sprite(pixels, bitmap, fade_step/steps)
-        pixels.clear()
+        pixels.fill(0, 0, 0)
         pixels.show()

@@ -7,7 +7,7 @@ class EffectsGenerator(object):
         pass
 
     def sparkle(self, pixels, count=10):
-        pixels.clear()
+        pixels.fill((0, 0, 0))
         pixels.show()
 
         pixel_count = len(pixels)
