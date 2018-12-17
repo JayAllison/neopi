@@ -1,3 +1,4 @@
+import argparse
 import board
 import effects
 from itertools import cycle
@@ -30,6 +31,15 @@ image_filenames = [
 ]
 
 
+def parse_arguments():
+    arg_description = ""
+    arg_epilog = ""
+    parser = argparse.ArgumentParser(description=arg_description, epilog=arg_epilog)
+    parser.add_argument('-b', '--brightness', action='store', dest="brightness", type=float,
+                        default=BRIGHTNESS, help="Brightness level (0.0-1.0)")
+    return parser.parse_args()
+
+
 def clear_screen(neopixels):
     neopixels.fill((0, 0, 0))
 
@@ -44,7 +54,8 @@ def get_next_image(filename_list):
         yield f
 
 
-pixels = neopixel.NeoPixel(GPIO, PIXEL_COUNT, brightness=BRIGHTNESS, auto_write=False)
+args = parse_arguments()
+pixels = neopixel.NeoPixel(GPIO, PIXEL_COUNT, brightness=args.brightness, auto_write=False)
 scroller = text_scroller.TextScroller(X_PIXELS, Y_PIXELS, ImageFont.truetype("Perfect DOS VGA 437 Win.ttf", 16))
 writer = sprite_writer.SpriteWriter(X_PIXELS, Y_PIXELS)
 effector = effects.EffectsGenerator()
