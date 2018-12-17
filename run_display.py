@@ -10,6 +10,10 @@ import sprite_writer
 import text_scroller
 import time
 
+# TODO: add an exit handler to clear the screen when the script is stopped
+# TODO: add logging to syslog (or a custom log file)
+# TODO: make sure exceptions go into the syslog, too (see BlindSteering project for an example)
+
 X_PIXELS = 16
 Y_PIXELS = 16
 PIXEL_COUNT = X_PIXELS * Y_PIXELS
@@ -22,14 +26,14 @@ messages = [
 ]
 
 image_filenames = [
-    'bitmaps/synapse.png',
-    'bitmaps/star.png',
-    'bitmaps/tree_and_gifts.png',
-    'bitmaps/holy_family.png',
-    'bitmaps/santa_hat.png',
-    'bitmaps/snowflake.png',
-    'bitmaps/candy_cane.png',
-    'bitmaps/snowman.png'
+    '/home/pi/neopi/bitmaps/synapse.png',
+    '/home/pi/neopi/bitmaps/star.png',
+    '/home/pi/neopi/bitmaps/tree_and_gifts.png',
+    '/home/pi/neopi/bitmaps/holy_family.png',
+    '/home/pi/neopi/bitmaps/santa_hat.png',
+    '/home/pi/neopi/bitmaps/snowflake.png',
+    '/home/pi/neopi/bitmaps/candy_cane.png',
+    '/home/pi/neopi/bitmaps/snowman.png'
 ]
 
 
@@ -61,7 +65,7 @@ def get_next_image(filename_list):
 args = parse_arguments()
 time.sleep(args.timedelay)
 pixels = neopixel.NeoPixel(GPIO, PIXEL_COUNT, brightness=args.brightness, auto_write=False)
-scroller = text_scroller.TextScroller(X_PIXELS, Y_PIXELS, ImageFont.truetype("Perfect_DOS_VGA_437_Win.ttf", 16))
+scroller = text_scroller.TextScroller(X_PIXELS, Y_PIXELS, ImageFont.truetype("/home/pi/neopi/Perfect_DOS_VGA_437_Win.ttf", 16))
 writer = sprite_writer.SpriteWriter(X_PIXELS, Y_PIXELS)
 effector = effects.EffectsGenerator()
 

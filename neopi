@@ -19,7 +19,7 @@ case "$1" in
   start)
     echo "Starting NeoPi"
     # run application you want to start
-    ~pi/neopi/run_display.py -b 0.1 &
+    ~pi/neopi/run_display.py -b 0.1 -t 10 &
     ;;
   stop)
     echo "Stopping NeoPi"
