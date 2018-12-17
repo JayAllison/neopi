@@ -39,6 +39,8 @@ def parse_arguments():
     parser = argparse.ArgumentParser(description=arg_description, epilog=arg_epilog)
     parser.add_argument('-b', '--brightness', action='store', dest="brightness", type=float,
                         default=BRIGHTNESS, help="Brightness level (0.0-1.0)")
+    parser.add_argument('-t', '--timedelay', action='store', dest="timedelay", type=int,
+                        default=BRIGHTNESS, help="Startup time delay")
     return parser.parse_args()
 
 
@@ -57,6 +59,7 @@ def get_next_image(filename_list):
 
 
 args = parse_arguments()
+time.sleep(args.timedelay)
 pixels = neopixel.NeoPixel(GPIO, PIXEL_COUNT, brightness=args.brightness, auto_write=False)
 scroller = text_scroller.TextScroller(X_PIXELS, Y_PIXELS, ImageFont.truetype("Perfect_DOS_VGA_437_Win.ttf", 16))
 writer = sprite_writer.SpriteWriter(X_PIXELS, Y_PIXELS)
