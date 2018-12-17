@@ -58,7 +58,7 @@ def get_next_image(filename_list):
 
 args = parse_arguments()
 pixels = neopixel.NeoPixel(GPIO, PIXEL_COUNT, brightness=args.brightness, auto_write=False)
-scroller = text_scroller.TextScroller(X_PIXELS, Y_PIXELS, ImageFont.truetype("Perfect DOS VGA 437 Win.ttf", 16))
+scroller = text_scroller.TextScroller(X_PIXELS, Y_PIXELS, ImageFont.truetype("~pi/neopi/Perfect DOS VGA 437 Win.ttf", 16))
 writer = sprite_writer.SpriteWriter(X_PIXELS, Y_PIXELS)
 effector = effects.EffectsGenerator()
 
