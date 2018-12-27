@@ -8,7 +8,7 @@ class TextScroller(object):
         self.y_size = y_size
         self.font = font
 
-    def scroll_message(self, pixels, message, color):
+    def scroll_message(self, pixels, message, color, rate=1):
         text_size = self.font.getsize(message)
         image_width = text_size[0] + 2*self.x_size + 1
         image_height = (text_size[1] // self.y_size + 1) * self.y_size
@@ -26,4 +26,4 @@ class TextScroller(object):
                         i = x*self.x_size + y
                     pixels[i] = image.getpixel((x+offset, y))[0:3]
             pixels.show()
-            offset += 1
+            offset += rate
