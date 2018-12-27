@@ -15,9 +15,9 @@ PIXEL_COUNT = X_PIXELS * Y_PIXELS
 BRIGHTNESS = 0.5
 GPIO = board.D18
 
-message = ("Countdown to Walt Disney World:", (255, 255, 255))
+message = ("Countdown to Walt Disney World:", (128, 255, 128))
 target_date = datetime.datetime(2019, 3, 16, 6, 0, 0)
-date_color = (255, 255, 255)
+date_color = (128, 128, 255)
 image_filename = 'bitmaps/white_mickey_16x16.bmp'
 
 
@@ -45,20 +45,25 @@ writer = sprite_writer.SpriteWriter(X_PIXELS, Y_PIXELS)
 
 while True:
 
+    print("Displaying icon...")
     writer.fade_in_sprite(pixels, image_filename, 5)
     time.sleep(2)
     writer.fade_out_sprite(pixels, image_filename, 5)
     time.sleep(0.25)
 
+    print(message[0])
     scroller.scroll_message(pixels, message[0], message[1])
     clear_screen(pixels)
     time.sleep(0.25)
 
-    countdown = datetime.datetime.now() - target_date
+    countdown = target_date - datetime.datetime.now()
+    hours = countdown.seconds // 60 // 60
+    minutes = countdown.seconds // 60 % 60
+    seconds = countdown.seconds  % 60 % 60
     countdown_string = str(countdown.days) + ' days, ' + \
-        str(countdown.seconds/60/60) + ':' + str(countdown.seconds/60) + ':' + str(countdown.seconds)
+        str(hours) + ':' + str(minutes) + ':' + str(seconds)
     print(countdown_string)
 
-    scroller.scroll_message(pixels, message[0], message[1])
+    scroller.scroll_message(pixels, countdown_string, date_color)
     clear_screen(pixels)
     time.sleep(0.25)
