@@ -40,18 +40,18 @@ args = parse_arguments()
 time.sleep(args.timedelay)
 
 pixels = neopixel.NeoPixel(GPIO, PIXEL_COUNT, brightness=args.brightness, auto_write=False)
-scroller = text_scroller.TextScroller(X_PIXELS, Y_PIXELS, ImageFont.truetype("Perfect_DOS_VGA_437_Win.ttf", 16))
+scroller = text_scroller.TextScroller(X_PIXELS, Y_PIXELS, ImageFont.truetype("/home/pi/neopi/Perfect_DOS_VGA_437_Win.ttf", 16))
 writer = sprite_writer.SpriteWriter(X_PIXELS, Y_PIXELS)
 
 while True:
 
-    print("Displaying icon...")
+    # print("Displaying icon...")
     writer.fade_in_sprite(pixels, image_filename, 5)
     time.sleep(2)
     writer.fade_out_sprite(pixels, image_filename, 5)
     time.sleep(0.25)
 
-    print(message[0])
+    # print(message[0])
     scroller.scroll_message(pixels, message[0], message[1])
     clear_screen(pixels)
     time.sleep(0.25)
@@ -62,7 +62,7 @@ while True:
     seconds = countdown.seconds  % 60 % 60
     countdown_string = str(countdown.days) + ' days, ' + \
         str(hours) + ':' + str(minutes) + ':' + str(seconds)
-    print(countdown_string)
+    # print(countdown_string)
 
     scroller.scroll_message(pixels, countdown_string, date_color)
     clear_screen(pixels)
