@@ -18,7 +18,7 @@ GPIO = board.D18
 message = ("Countdown to Walt Disney World:", (128, 255, 128))
 target_date = datetime.datetime(2019, 3, 16, 6, 0, 0)
 date_color = (128, 128, 255)
-image_filename = 'bitmaps/white_mickey_16x16.bmp'
+image_filename = '/home/pi/neopi/bitmaps/white_mickey_16x16.bmp'
 
 
 def parse_arguments():
