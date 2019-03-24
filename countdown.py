@@ -15,7 +15,7 @@ PIXEL_COUNT = X_PIXELS * Y_PIXELS
 BRIGHTNESS = 0.5
 GPIO = board.D18
 
-message = ("Countdown to Mark's birthday:", (0, 0, 128))
+message = ("Countdown to Mark's Birthday:", (0, 0, 255))
 target_date = datetime.datetime(2019, 4, 3, 0, 0, 0)
 date_color = (128, 128, 128)
 image_filename = '/home/pi/neopi/bitmaps/mark-16x16.jpg'
