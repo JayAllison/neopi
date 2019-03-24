@@ -28,7 +28,7 @@ messages = [
     {
         "message": {
             "text": "Countdown to Paul's Birthday:",
-            "color": (255, 0, 255)
+            "color": (255, 255, 0)
         },
         "target_date": datetime.datetime(2019, 4, 7, 0, 0, 0),
         "date_color": (255, 0, 0),
