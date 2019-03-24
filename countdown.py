@@ -15,10 +15,10 @@ PIXEL_COUNT = X_PIXELS * Y_PIXELS
 BRIGHTNESS = 0.5
 GPIO = board.D18
 
-message = ("Countdown to Walt Disney World:", (128, 255, 128))
-target_date = datetime.datetime(2019, 3, 16, 6, 0, 0)
-date_color = (128, 128, 255)
-image_filename = '/home/pi/neopi/bitmaps/white_mickey_16x16.bmp'
+message = ("Countdown to Mark's birthday:", (0, 0, 128))
+target_date = datetime.datetime(2019, 4, 3, 0, 0, 0)
+date_color = (128, 128, 128)
+image_filename = '/home/pi/neopi/bitmaps/mark-16x16.jpg'
 
 
 def parse_arguments():
