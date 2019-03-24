@@ -15,10 +15,26 @@ PIXEL_COUNT = X_PIXELS * Y_PIXELS
 BRIGHTNESS = 0.5
 GPIO = board.D18
 
-message = ("Countdown to Mark's Birthday:", (0, 0, 255))
-target_date = datetime.datetime(2019, 4, 3, 0, 0, 0)
-date_color = (128, 128, 128)
-image_filename = '/home/pi/neopi/bitmaps/mark-16x16.jpg'
+messages = [
+    {
+        "message": {
+            "text": "Countdown to Mark's Birthday:",
+            "color": (0, 0, 255)
+        },
+        "target_date": datetime.datetime(2019, 4, 3, 0, 0, 0),
+        "date_color": (0, 255, 0),
+        "image_filename": '/home/pi/neopi/bitmaps/mark-16x16.jpg'
+    },
+    {
+        "message": {
+            "text": "Countdown to Paul's Birthday:",
+            "color": (255, 0, 255)
+        },
+        "target_date": datetime.datetime(2019, 4, 7, 0, 0, 0),
+        "date_color": (255, 0, 0),
+        "image_filename": '/home/pi/neopi/bitmaps/paul-16x16.jpg'
+    }
+]
 
 
 def parse_arguments():
@@ -46,31 +62,34 @@ writer = sprite_writer.SpriteWriter(X_PIXELS, Y_PIXELS)
 
 while True:
 
-    # print("Displaying icon...")
-    writer.fade_in_sprite(pixels, image_filename, 5)
-    time.sleep(2)
-    writer.fade_out_sprite(pixels, image_filename, 5)
-    time.sleep(0.25)
+    for message_data in messages:
 
-    # print(message[0])
-    scroller.scroll_message(pixels, message[0], message[1], 2)
-    clear_screen(pixels)
-    time.sleep(0.25)
+        # print("Displaying icon...")
+        writer.fade_in_sprite(pixels, message_data["image_filename"], 5)
+        time.sleep(2)
+        writer.fade_out_sprite(pixels, message_data["image_filename"], 5)
+        time.sleep(0.25)
 
-    countdown = target_date - datetime.datetime.now()
-    hours = countdown.seconds // 60 // 60
-    if hours < 10:
-        hours = '0' + str(hours)
-    minutes = countdown.seconds // 60 % 60
-    if minutes < 10:
-        minutes = '0' + str(minutes)
-    seconds = countdown.seconds % 60 % 60
-    if seconds < 10:
-        seconds = '0' + str(seconds)
-    countdown_string = str(countdown.days) + ' days, ' + \
-        str(hours) + ':' + str(minutes) + ':' + str(seconds)
-    # print(countdown_string)
+        # print(message[0])
+        scroller.scroll_message(pixels, message_data["message"]["text"], message_data["message"]["color"], 2)
+        clear_screen(pixels)
+        time.sleep(0.25)
 
-    scroller.scroll_message(pixels, countdown_string, date_color, 2)
-    clear_screen(pixels)
-    time.sleep(0.25)
+        countdown = message_data["target_date"] - datetime.datetime.now()
+        day_word = "day" if countdown.days == 1 else "days"
+        hours = countdown.seconds // 60 // 60
+        if hours < 10:
+            hours = '0' + str(hours)
+        minutes = countdown.seconds // 60 % 60
+        if minutes < 10:
+            minutes = '0' + str(minutes)
+        seconds = countdown.seconds % 60 % 60
+        if seconds < 10:
+            seconds = '0' + str(seconds)
+        countdown_string = str(countdown.days) + ' ' + day_word + ' ' + \
+            str(hours) + ':' + str(minutes) + ':' + str(seconds)
+        # print(countdown_string)
+
+        scroller.scroll_message(pixels, countdown_string, message_data["date_color"], 2)
+        clear_screen(pixels)
+        time.sleep(0.25)
